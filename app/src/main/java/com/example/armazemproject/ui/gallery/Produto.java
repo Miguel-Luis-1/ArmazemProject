@@ -1,3 +1,5 @@
+package com.example.armazemproject.ui.gallery;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,36 +23,3 @@ public class Produto {
     // ...
 }
 
-public class MainActivity extends AppCompatActivity {
-    private List<Produto> produtos;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        produtos = new ArrayList<>();
-
-        Button buttonSubmit = findViewById(R.id.buttonSubmit);
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String codigo = ((EditText) findViewById(R.id.editTextCodigo)).getText().toString();
-                String nome = ((EditText) findViewById(R.id.editTextNome)).getText().toString();
-                String descricao = ((EditText) findViewById(R.id.editTextDescricao)).getText().toString();
-                double precoUnitario = Double.parseDouble(((EditText) findViewById(R.id.editTextPrecoUnitario)).getText().toString());
-                String categoria = ((EditText) findViewById(R.id.editTextCategoria)).getText().toString();
-
-                Produto produto = new Produto(codigo, nome, descricao, precoUnitario, categoria);
-                produtos.add(produto);
-
-                // Limpar campos após a inserção
-                ((EditText) findViewById(R.id.editTextCodigo)).setText("");
-                ((EditText) findViewById(R.id.editTextNome)).setText("");
-                ((EditText) findViewById(R.id.editTextDescricao)).setText("");
-                ((EditText) findViewById(R.id.editTextPrecoUnitario)).setText("");
-                ((EditText) findViewById(R.id.editTextCategoria)).setText("");
-            }
-        });
-    }
-}

@@ -1,5 +1,6 @@
 package com.example.armazemproject.ui.gallery;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,27 +39,67 @@ public class GalleryFragment extends Fragment {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String codigo = ((EditText) root.findViewById(R.id.editTextCodigo)).getText().toString();
-                String nome = ((EditText) root.findViewById(R.id.editTextNome)).getText().toString();
-                String descricao = ((EditText) root.findViewById(R.id.editTextDescricao)).getText().toString();
-                double precoUnitario = Double.parseDouble(((EditText) root.findViewById(R.id.editTextPrecoUnitario)).getText().toString());
-                String categoria = ((EditText) root.findViewById(R.id.editTextCategoria)).getText().toString();
+                EditText editTextCodigo = root.findViewById(R.id.editTextCodigo);
+                EditText editTextNome = root.findViewById(R.id.editTextNome);
+                EditText editTextDescricao = root.findViewById(R.id.editTextDescricao);
+                EditText editTextPrecoUnitario = root.findViewById(R.id.editTextPrecoUnitario);
+                EditText editTextCategoria = root.findViewById(R.id.editTextCategoria);
+
+                String codigo = editTextCodigo.getText().toString();
+                String nome = editTextNome.getText().toString();
+                String descricao = editTextDescricao.getText().toString();
+                String precoUnitarioStr = editTextPrecoUnitario.getText().toString();
+                String categoria = editTextCategoria.getText().toString();
+
+                // Verificar se todos os campos estão preenchidos
+                if (codigo.isEmpty()) {
+                    editTextCodigo.setHintTextColor(Color.RED);
+                    return;
+                }
+                if (nome.isEmpty()) {
+                    editTextNome.setHintTextColor(Color.RED);
+                    return;
+                }
+                if (descricao.isEmpty()) {
+                    editTextDescricao.setHintTextColor(Color.RED);
+                    return;
+                }
+                if (precoUnitarioStr.isEmpty()) {
+                    editTextPrecoUnitario.setHintTextColor(Color.RED);
+                    return;
+                }
+                if (categoria.isEmpty()) {
+                    editTextCategoria.setHintTextColor(Color.RED);
+                    return;
+                }
+
+                double precoUnitario = Double.parseDouble(precoUnitarioStr);
 
                 Produto produto = new Produto(codigo, nome, descricao, precoUnitario, categoria);
                 produtos.add(produto);
 
+                // Imprimir a lista de produtos no terminal
+                for (Produto p : produtos) {
+                    Log.d("Produto", p.toString());
+                }
+                Log.d("Lista de produtos", produtos.toString());
+
                 // Limpar campos após a inserção
-                ((EditText) root.findViewById(R.id.editTextCodigo)).setText("");
-                ((EditText) root.findViewById(R.id.editTextNome)).setText("");
-                ((EditText) root.findViewById(R.id.editTextDescricao)).setText("");
-                ((EditText) root.findViewById(R.id.editTextPrecoUnitario)).setText("");
-                ((EditText) root.findViewById(R.id.editTextCategoria)).setText("");
-                
+                editTextCodigo.setText("");
+                editTextNome.setText("");
+                editTextDescricao.setText("");
+                editTextPrecoUnitario.setText("");
+                editTextCategoria.setText("");
             }
         });
 
+
         return root;
     }
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
 
     @Override
     public void onDestroyView() {

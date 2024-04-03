@@ -11,9 +11,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.armazemproject.databinding.FragmentHomeBinding;
-import com.example.armazemproject.ui.gallery.GalleryFragment;
-import com.example.armazemproject.ui.gallery.Produto;
+import com.example.armazemproject.dados.Produto;
+import com.example.armazemproject.dados.ProdutoSharedPreferences;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -22,27 +23,22 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        ViewGroup root = binding.getRoot();
 
-        // Obtenha a instância do GalleryFragment
-        GalleryFragment galleryFragment = (GalleryFragment) getFragmentManager().findFragmentByTag("GalleryFragment");
-
-        // Verifique se o fragmento existe
-        if (galleryFragment != null) {
-            // Obtenha a lista de produtos
-            List<Produto> produtos = galleryFragment.getProdutos();
-
-            ListView listView = new ListView(getContext());
-            ArrayAdapter<Produto> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, produtos);
-            listView.setAdapter(adapter);
-
-            // Adicione a ListView ao seu layout
-            ((ViewGroup) root).addView(listView);
+        ProdutoSharedPreferences produtoSharedPreferences = new ProdutoSharedPreferences(getContext());
+        List<Produto> produtos = produtoSharedPreferences.loadProducts();
+        if (produtos == null) {
+            produtos = new ArrayList<>();
         }
+
+        ListView listView = new ListView(getContext());
+        ArrayAdapter<Produto> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, produtos);
+        listView.setAdapter(adapter);
+
+        // Adicione a ListView ao seu layout
+        root.addView(listView);
 
         return root;
     }
@@ -53,3 +49,5 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 }
+
+

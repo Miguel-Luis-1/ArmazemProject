@@ -15,13 +15,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.armazemproject.R;
 import com.example.armazemproject.databinding.FragmentGalleryBinding;
-import com.example.armazemproject.ui.gallery.Produto;
-
+import com.example.armazemproject.dados.Produto;
+import com.example.armazemproject.dados.ProdutoSharedPreferences;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GalleryFragment extends Fragment {
-
     private FragmentGalleryBinding binding;
     private List<Produto> produtos;
 
@@ -39,6 +38,7 @@ public class GalleryFragment extends Fragment {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProdutoSharedPreferences produtoSharedPreferences = new ProdutoSharedPreferences(getContext());
                 EditText editTextCodigo = root.findViewById(R.id.editTextCodigo);
                 EditText editTextNome = root.findViewById(R.id.editTextNome);
                 EditText editTextDescricao = root.findViewById(R.id.editTextDescricao);
@@ -77,7 +77,7 @@ public class GalleryFragment extends Fragment {
 
                 Produto produto = new Produto(codigo, nome, descricao, precoUnitario, categoria);
                 produtos.add(produto);
-
+                produtoSharedPreferences.saveProducts(produtos);
                 // Imprimir a lista de produtos no terminal
                 for (Produto p : produtos) {
                     Log.d("Produto", p.toString());
@@ -90,9 +90,10 @@ public class GalleryFragment extends Fragment {
                 editTextDescricao.setText("");
                 editTextPrecoUnitario.setText("");
                 editTextCategoria.setText("");
-            }
-        });
 
+            }
+
+        });
 
         return root;
     }

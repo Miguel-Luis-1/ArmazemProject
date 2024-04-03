@@ -1,4 +1,4 @@
-package com.example.armazemproject.ui.gallery;
+package com.example.armazemproject.dados;
 
 import java.util.ArrayList;
 import java.util.List;

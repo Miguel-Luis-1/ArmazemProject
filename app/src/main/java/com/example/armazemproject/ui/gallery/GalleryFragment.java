@@ -44,12 +44,14 @@ public class GalleryFragment extends Fragment {
                 EditText editTextDescricao = root.findViewById(R.id.editTextDescricao);
                 EditText editTextPrecoUnitario = root.findViewById(R.id.editTextPrecoUnitario);
                 EditText editTextCategoria = root.findViewById(R.id.editTextCategoria);
+                EditText editTextqtdUnidades = root.findViewById(R.id.editTextqtdUnidades);
 
                 String codigo = editTextCodigo.getText().toString();
                 String nome = editTextNome.getText().toString();
                 String descricao = editTextDescricao.getText().toString();
                 String precoUnitarioStr = editTextPrecoUnitario.getText().toString();
                 String categoria = editTextCategoria.getText().toString();
+                String qtdUnidadesStr = editTextqtdUnidades.getText().toString();
 
                 // Verificar se todos os campos estão preenchidos
                 if (codigo.isEmpty()) {
@@ -72,10 +74,15 @@ public class GalleryFragment extends Fragment {
                     editTextCategoria.setHintTextColor(Color.RED);
                     return;
                 }
+                if (qtdUnidadesStr.isEmpty()) {
+                    editTextqtdUnidades.setHintTextColor(Color.RED);
+                    return;
+                }
 
                 double precoUnitario = Double.parseDouble(precoUnitarioStr);
+                double qtdUnidades = Double.parseDouble(qtdUnidadesStr);
 
-                Produto produto = new Produto(codigo, nome, descricao, precoUnitario, categoria);
+                Produto produto = new Produto(codigo, nome, descricao, precoUnitario, categoria, qtdUnidades);
                 produtos.add(produto);
                 produtoSharedPreferences.saveProducts(produtos);
                 // Imprimir a lista de produtos no terminal
@@ -90,6 +97,7 @@ public class GalleryFragment extends Fragment {
                 editTextDescricao.setText("");
                 editTextPrecoUnitario.setText("");
                 editTextCategoria.setText("");
+                editTextqtdUnidades.setText("");
 
             }
 

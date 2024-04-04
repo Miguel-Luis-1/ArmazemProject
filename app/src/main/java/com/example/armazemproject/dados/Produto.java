@@ -10,13 +10,16 @@ public class Produto {
     private double precoUnitario;
     private String categoria;
 
+    private double qtdUnidades;
+
     // Construtor
-    public Produto(String codigo, String nome, String descricao, double precoUnitario, String categoria) {
+    public Produto(String codigo, String nome, String descricao, double precoUnitario, String categoria, double qtdUnidades) {
         this.codigo = codigo;
         this.nome = nome;
         this.descricao = descricao;
         this.precoUnitario = precoUnitario;
         this.categoria = categoria;
+        this.qtdUnidades = qtdUnidades;
     }
 
     @Override
@@ -27,11 +30,22 @@ public class Produto {
                 ", descricao='" + descricao + '\'' +
                 ", precoUnitario=" + precoUnitario +
                 ", categoria='" + categoria + '\'' +
+                ", qtdUnidades='" + qtdUnidades + '\'' +
                 '}';
     }
 
 
-    // Getters e Setters
-    // ...
+    public String getNome() {
+        return nome;
+    }
+
+    public double getPrecoUnitario() {
+        return precoUnitario;
+    }
+
+    public double getQuantidadeUnidades() {
+        return qtdUnidades;
+    }
+
 }
 

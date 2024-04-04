@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.armazemproject.dados.ProdutoAdapter;
 import com.example.armazemproject.databinding.FragmentHomeBinding;
 import com.example.armazemproject.dados.Produto;
 import com.example.armazemproject.dados.ProdutoSharedPreferences;
@@ -34,7 +35,7 @@ public class HomeFragment extends Fragment {
         }
 
         ListView listView = new ListView(getContext());
-        ArrayAdapter<Produto> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, produtos);
+        ProdutoAdapter adapter = new ProdutoAdapter(getContext(), produtos);
         listView.setAdapter(adapter);
 
         // Adicione a ListView ao seu layout

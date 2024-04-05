@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.armazemproject.dados.ProdutoAdapter;
+import com.example.armazemproject.dados.ProdutoList;
 import com.example.armazemproject.databinding.FragmentHomeBinding;
 import com.example.armazemproject.dados.Produto;
 import com.example.armazemproject.dados.ProdutoSharedPreferences;
@@ -21,7 +22,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-
+    ProdutoList produtoList = new ProdutoList();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 

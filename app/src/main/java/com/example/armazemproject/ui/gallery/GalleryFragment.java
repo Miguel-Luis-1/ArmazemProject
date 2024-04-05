@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.armazemproject.R;
+import com.example.armazemproject.dados.ProdutoList;
 import com.example.armazemproject.databinding.FragmentGalleryBinding;
 import com.example.armazemproject.dados.Produto;
 import com.example.armazemproject.dados.ProdutoSharedPreferences;
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class GalleryFragment extends Fragment {
     private FragmentGalleryBinding binding;
-    private List<Produto> produtos;
+    ProdutoList produtoList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -32,7 +33,12 @@ public class GalleryFragment extends Fragment {
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        produtos = new ArrayList<>();
+        // Carregar produtos salvos
+        ProdutoSharedPreferences produtoSharedPreferences = new ProdutoSharedPreferences(getContext());
+        List<Produto> savedProducts = produtoSharedPreferences.loadProducts();
+        produtoList = new ProdutoList(savedProducts);
+
+
 
         Button buttonSubmit = root.findViewById(R.id.buttonSubmit);
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
@@ -83,13 +89,12 @@ public class GalleryFragment extends Fragment {
                 double qtdUnidades = Double.parseDouble(qtdUnidadesStr);
 
                 Produto produto = new Produto(codigo, nome, descricao, precoUnitario, categoria, qtdUnidades);
-                produtos.add(produto);
-                produtoSharedPreferences.saveProducts(produtos);
+                produtoList.addProduto(produto);
+                produtoSharedPreferences.saveProducts(produtoList.getProdutos());
                 // Imprimir a lista de produtos no terminal
-                for (Produto p : produtos) {
+                for (Produto p : produtoList.getProdutos()) {
                     Log.d("Produto", p.toString());
                 }
-                Log.d("Lista de produtos", produtos.toString());
 
                 // Limpar campos após a inserção
                 editTextCodigo.setText("");
@@ -104,9 +109,6 @@ public class GalleryFragment extends Fragment {
         });
 
         return root;
-    }
-    public List<Produto> getProdutos() {
-        return produtos;
     }
 
 

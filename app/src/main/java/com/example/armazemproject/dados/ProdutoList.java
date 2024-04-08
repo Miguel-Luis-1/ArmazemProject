@@ -22,4 +22,6 @@ public class ProdutoList {
     public void addProduto(Produto item) {
         produtoList.add(item);
     }
+
+    public  void cleanList(List<Produto> produtos) {produtos.clear();}
 }

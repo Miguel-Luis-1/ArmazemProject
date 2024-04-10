@@ -31,5 +31,13 @@
             android:text="Limpar lista"
             tools:layout_editor_absoluteX="29dp"
             tools:layout_editor_absoluteY="72dp" />
+        <Button
+            android:id="@+id/criarSenha"
+            android:layout_width="180dp"
+            android:layout_height="40dp"
+            android:text="Criar uma Senha"
+            tools:layout_editor_absoluteX="29dp"
+            tools:layout_editor_absoluteY="72dp" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

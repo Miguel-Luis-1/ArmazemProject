@@ -33,4 +33,12 @@
         android:label="Criar Senha"
         tools:layout="@layout/fragment_senha" />
 
+    <fragment
+        android:id="@+id/nav_show_produto"
+        android:name="com.example.armazemproject.ui.showProdutos.ShowProduto"
+        android:label="Show Produto"
+        tools:layout="@layout/fragment_show_produto" />
+
+
+
 </navigation>

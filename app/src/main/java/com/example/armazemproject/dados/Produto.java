@@ -1,9 +1,10 @@
 package com.example.armazemproject.dados;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Produto {
+public class Produto implements Serializable {
     private String codigo;
     private String nome;
     private String descricao;

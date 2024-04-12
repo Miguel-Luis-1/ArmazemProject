@@ -45,10 +45,44 @@ public class SlideshowFragment extends Fragment {
         produtoSharedPreferences = new ProdutoSharedPreferences(getActivity());
 
         Button criarSenhaButton = root.findViewById(R.id.criarSenha);
+        String senhaRegistrada = senha.getSenha(getActivity());
+        if (senhaRegistrada != null && !senhaRegistrada.isEmpty()) {
+            criarSenhaButton.setText("Trocar a senha");
+        }
         criarSenhaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_slideshowFragment_to_senhaFragment);
+                String senhaRegistrada = senha.getSenha(getActivity());
+                if (senhaRegistrada != null && !senhaRegistrada.isEmpty()) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Digite a senha");
+
+                    final EditText input = new EditText(getActivity());
+                    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    builder.setView(input);
+
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String senhaInserida = input.getText().toString();
+                            if (senhaInserida.equals(senhaRegistrada)) {
+                                Navigation.findNavController(v).navigate(R.id.action_slideshowFragment_to_senhaFragment);
+                            } else {
+                                Toast.makeText(getActivity(), "Senha incorreta", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                    builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    builder.show();
+                } else {
+                    Navigation.findNavController(v).navigate(R.id.action_slideshowFragment_to_senhaFragment);
+                }
             }
         });
 

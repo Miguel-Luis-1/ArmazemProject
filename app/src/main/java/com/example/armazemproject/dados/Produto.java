@@ -36,8 +36,18 @@ public class Produto implements Serializable {
     }
 
 
+    public String getCodigo(){return codigo;}
+
     public String getNome() {
         return nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public String getCategoria() {
+        return categoria;
     }
 
     public double getPrecoUnitario() {

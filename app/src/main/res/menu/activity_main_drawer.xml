@@ -14,6 +14,10 @@
             android:icon="@drawable/ic_add"
             android:title="@string/menu_gallery" />
         <item
+            android:id="@+id/nav_show_produto"
+            android:icon="@drawable/ic_search"
+            android:title="@string/hello_blank_fragment" />
+        <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_settings"
             android:title="@string/menu_slideshow" />

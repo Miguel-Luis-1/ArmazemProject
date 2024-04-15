@@ -5,6 +5,24 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <EditText
+        android:id="@+id/searchInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite o nome do produto" />
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pesquisar" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apagar" />
+
     <TextView
         android:id="@+id/nomeProduto"
         android:layout_width="match_parent"
@@ -13,11 +31,32 @@
         android:text="Nome: " />
 
     <TextView
+        android:id="@+id/codigoProduto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Código: " />
+
+    <TextView
+        android:id="@+id/descricaoProduto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Descrição: " />
+
+    <TextView
         android:id="@+id/precoUnitario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="Preço: " />
+
+    <TextView
+        android:id="@+id/categoriaProduto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Categoria: " />
 
     <TextView
         android:id="@+id/quantidadeUnidades"

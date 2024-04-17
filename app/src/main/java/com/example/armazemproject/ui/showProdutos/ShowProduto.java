@@ -8,15 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.armazemproject.R;
 import com.example.armazemproject.dados.DatabaseHelper;
 import com.example.armazemproject.dados.Produto;
 import com.example.armazemproject.dados.ProdutoDAO;
-import com.example.armazemproject.dados.ProdutoSharedPreferences;
 
 import java.util.List;
 

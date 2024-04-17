@@ -2,7 +2,6 @@ package com.example.armazemproject.ui.gallery;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +15,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.armazemproject.R;
 import com.example.armazemproject.dados.DatabaseHelper;
 import com.example.armazemproject.dados.ProdutoDAO;
-import com.example.armazemproject.dados.ProdutoList;
 import com.example.armazemproject.databinding.FragmentGalleryBinding;
 import com.example.armazemproject.dados.Produto;
-import com.example.armazemproject.dados.ProdutoSharedPreferences;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GalleryFragment extends Fragment {
     private FragmentGalleryBinding binding;
-    ProdutoList produtoList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

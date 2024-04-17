@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,12 +19,8 @@ import androidx.navigation.Navigation;
 import com.example.armazemproject.R;
 import com.example.armazemproject.dados.DatabaseHelper;
 import com.example.armazemproject.dados.ProdutoDAO;
-import com.example.armazemproject.dados.ProdutoList;
 import com.example.armazemproject.dados.Senha;
-import com.example.armazemproject.dados.ProdutoSharedPreferences;
 import com.example.armazemproject.databinding.FragmentSlideshowBinding;
-
-import java.util.ArrayList;
 
 public class SlideshowFragment extends Fragment {
 

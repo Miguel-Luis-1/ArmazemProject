@@ -18,6 +18,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.armazemproject.R;
+import com.example.armazemproject.dados.DatabaseHelper;
+import com.example.armazemproject.dados.ProdutoDAO;
 import com.example.armazemproject.dados.ProdutoList;
 import com.example.armazemproject.dados.Senha;
 import com.example.armazemproject.dados.ProdutoSharedPreferences;
@@ -29,8 +31,7 @@ public class SlideshowFragment extends Fragment {
 
     private FragmentSlideshowBinding binding;
     private Senha senha;
-    private ProdutoList produtoList;
-    private ProdutoSharedPreferences produtoSharedPreferences;
+    private ProdutoDAO produtoDAO;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,8 +42,8 @@ public class SlideshowFragment extends Fragment {
         View root = binding.getRoot();
 
         senha = new Senha();
-        produtoList = new ProdutoList();
-        produtoSharedPreferences = new ProdutoSharedPreferences(getActivity());
+        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
+        produtoDAO = new ProdutoDAO(dbHelper.getWritableDatabase());
 
         Button criarSenhaButton = root.findViewById(R.id.criarSenha);
         String senhaRegistrada = senha.getSenha(getActivity());
@@ -106,7 +107,7 @@ public class SlideshowFragment extends Fragment {
                         public void onClick(DialogInterface dialog, int which) {
                             String senhaInserida = input.getText().toString();
                             if (senhaInserida.equals(senhaRegistrada)) {
-                                produtoSharedPreferences.saveProducts(new ArrayList<>());
+                                produtoDAO.limparTodos(); // Limpa a lista de produtos
                                 Toast.makeText(getActivity(), "Lista limpa com sucesso", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getActivity(), "Senha incorreta", Toast.LENGTH_SHORT).show();

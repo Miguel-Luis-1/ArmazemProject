@@ -2,7 +2,6 @@ package com.example.armazemproject.ui.gallery;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +13,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.armazemproject.R;
-import com.example.armazemproject.dados.ProdutoList;
+import com.example.armazemproject.dados.DatabaseHelper;
+import com.example.armazemproject.dados.ProdutoDAO;
 import com.example.armazemproject.databinding.FragmentGalleryBinding;
 import com.example.armazemproject.dados.Produto;
-import com.example.armazemproject.dados.ProdutoSharedPreferences;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GalleryFragment extends Fragment {
     private FragmentGalleryBinding binding;
-    ProdutoList produtoList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -33,18 +29,14 @@ public class GalleryFragment extends Fragment {
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        // Carregar produtos salvos
-        ProdutoSharedPreferences produtoSharedPreferences = new ProdutoSharedPreferences(getContext());
-        List<Produto> savedProducts = produtoSharedPreferences.loadProducts();
-        produtoList = new ProdutoList(savedProducts);
-
-
+        // Instanciar DatabaseHelper e ProdutoDAO
+        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
+        ProdutoDAO produtoDAO = new ProdutoDAO(dbHelper.getWritableDatabase());
 
         Button buttonSubmit = root.findViewById(R.id.buttonSubmit);
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProdutoSharedPreferences produtoSharedPreferences = new ProdutoSharedPreferences(getContext());
                 EditText editTextCodigo = root.findViewById(R.id.editTextCodigo);
                 EditText editTextNome = root.findViewById(R.id.editTextNome);
                 EditText editTextDescricao = root.findViewById(R.id.editTextDescricao);
@@ -89,12 +81,7 @@ public class GalleryFragment extends Fragment {
                 double qtdUnidades = Double.parseDouble(qtdUnidadesStr);
 
                 Produto produto = new Produto(codigo, nome, descricao, precoUnitario, categoria, qtdUnidades);
-                produtoList.addProduto(produto);
-                produtoSharedPreferences.saveProducts(produtoList.getProdutos());
-                // Imprimir a lista de produtos no terminal
-                for (Produto p : produtoList.getProdutos()) {
-                    Log.d("Produto", p.toString());
-                }
+                produtoDAO.inserir(produto); // Inserir produto no banco de dados
 
                 // Limpar campos após a inserção
                 editTextCodigo.setText("");
@@ -103,13 +90,12 @@ public class GalleryFragment extends Fragment {
                 editTextPrecoUnitario.setText("");
                 editTextCategoria.setText("");
                 editTextqtdUnidades.setText("");
-
             }
-
         });
 
         return root;
     }
+
 
 
     @Override

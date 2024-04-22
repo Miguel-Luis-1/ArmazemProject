@@ -8,27 +8,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.armazemproject.R;
+import com.example.armazemproject.dados.DatabaseHelper;
 import com.example.armazemproject.dados.Produto;
-import com.example.armazemproject.dados.ProdutoSharedPreferences;
+import com.example.armazemproject.dados.ProdutoDAO;
 
 import java.util.List;
 
 public class ShowProduto extends Fragment {
 
-    private List<Produto> produtos;
     private Produto produto;
-    private ProdutoSharedPreferences produtoSharedPreferences;
+    private ProdutoDAO produtoDAO;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        produtoSharedPreferences = new ProdutoSharedPreferences(getContext());
-        produtos = produtoSharedPreferences.loadProducts();
+        DatabaseHelper dbHelper = new DatabaseHelper(getContext());
+        produtoDAO = new ProdutoDAO(dbHelper.getWritableDatabase());
     }
 
     @Override
@@ -52,6 +50,7 @@ public class ShowProduto extends Fragment {
             @Override
             public void onClick(View v) {
                 String searchQuery = searchInput.getText().toString();
+                List<Produto> produtos = produtoDAO.listarTodos();
                 for (Produto p : produtos) {
                     if (p.getNome().equalsIgnoreCase(searchQuery)) {
                         produto = p;
@@ -75,8 +74,7 @@ public class ShowProduto extends Fragment {
             @Override
             public void onClick(View v) {
                 if (produto != null) {
-                    produtos.remove(produto);
-                    produtoSharedPreferences.saveProducts(produtos);
+                    produtoDAO.deletar(produto);
 
                     // Limpar os campos de texto
                     nomeProdutoTextView.setText("Nome: ");
@@ -94,4 +92,5 @@ public class ShowProduto extends Fragment {
         return view;
     }
 }
+
 
